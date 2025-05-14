@@ -70,7 +70,9 @@ class BaseLoader(Dataset):
             from dataset.data_loader.face_detector.YOLO5Face import YOLO5Face
             if 'Y5F' in self.config_data.PREPROCESS.CROP_FACE.BACKEND:
                 self.Y5FObj = YOLO5Face(self.config_data.PREPROCESS.CROP_FACE.BACKEND, device)
-
+            elif 'Y11F' in self.config_data.PREPROCESS.CROP_FACE.BACKEND:
+                from dataset.data_loader.face_detector.YOLO11Face import YOLO11Face
+                self.Y11FObj = YOLO11Face(self.config_data.PREPROCESS.CROP_FACE.BACKEND, device)
         assert (config_data.BEGIN < config_data.END)
         assert (config_data.BEGIN > 0 or config_data.BEGIN == 0)
         assert (config_data.END < 1 or config_data.END == 1)
