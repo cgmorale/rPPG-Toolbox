@@ -43,7 +43,7 @@ class YOLO11Face(object):
         os.makedirs(weights_dir, exist_ok=True)
         
         model_map = {
-            'Y11F': 'yolov11n.pt',       # Nano
+            'Y11F': 'yolov11m-face.pt',       # Nano
             'Y11F-M': 'yolov11m-face.pt',     # Medium
             'Y11F-L': 'yolov11l.pt',     # Large
         }

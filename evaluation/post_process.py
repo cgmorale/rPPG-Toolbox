@@ -37,7 +37,7 @@ def _calculate_fft_hr(ppg_signal, fs=60, low_pass=0.6, high_pass=3.3):
     # we recommend low_pass=0.75 and high_pass=2.5 instead of the defaults above.
     """Calculate heart rate based on PPG using Fast Fourier transform (FFT)."""
     ppg_signal = np.expand_dims(ppg_signal, 0)
-    N = _next_power_of_2(ppg_signal.shape[1])
+    N =  N = 2**14
     f_ppg, pxx_ppg = scipy.signal.periodogram(ppg_signal, fs=fs, nfft=N, detrend=False)
     fmask_ppg = np.argwhere((f_ppg >= low_pass) & (f_ppg <= high_pass))
     mask_ppg = np.take(f_ppg, fmask_ppg)

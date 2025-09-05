@@ -5,20 +5,22 @@ UNSUPERVISED:
   METRICS: ['MAE', 'RMSE', 'MAPE', 'Pearson', 'SNR', 'BA']
   DATA:
     INFO:
-      LIGHT: [1, 2, 3]  # 1 - LED-Low, 2 - LED-high, 3 - Incandescent, 4 - Nature
-      MOTION: [1] # 1 - Stationary, 2 - Rotation, 3 - Talking, 4 - Walking
-      EXERCISE: [2] # 1 - True, 2 - False
-      SKIN_COLOR: [3] # Fitzpatrick Scale Skin Types - 3, 4, 5, 6
+      LIGHT: [1, 2, 3, 4]  # 1 - LED-Low, 2 - LED-high, 3 - Incandescent, 4 - Nature
+      MOTION: [1,2,3,4] # 1 - Stationary, 2 - Rotation, 3 - Talking, 4 - Walking
+      EXERCISE: [1, 2] # 1 - True, 2 - False
+      SKIN_COLOR: [3, 4, 5, 6] # Fitzpatrick Scale Skin Types - 3, 4, 5, 6
       GENDER: [1, 2]  # 1 - Male, 2 - Female
       GLASSER: [1, 2] # 1 - True, 2 - False
       HAIR_COVER: [1, 2] # 1 - True, 2 - False
       MAKEUP: [1, 2] # 1 - True, 2 - False
     FS: 30
     DATASET: MMPD
-    DO_PREPROCESS: False                  # if first time, should be true
+    DO_PREPROCESS: True                  # if first time, should be true
     DATA_FORMAT: NDHWC
-    DATA_PATH:   "/data/rPPG_dataset/mat_dataset"          # Raw dataset path, need to be updated
-    CACHED_PATH: "/data/rPPG_dataset/processed_dataset"      # Processed dataset save path, need to be updated
+    DATA_PATH:   "/zfsauton/data/straps/MMPD/"          # Raw dataset path, need to be updated
+    CACHED_PATH: "/zfsauton/data/straps/MMPD/processed_dataset"      # Processed dataset save path, need to be updated
+    # Add to your config
+    SAVE_RGB_SIGNALS : True  # Whether to save RGB signals separately
     EXP_DATA_NAME: ""
     BEGIN: 0.0
     END: 1.0
@@ -29,13 +31,14 @@ UNSUPERVISED:
       CHUNK_LENGTH: 180
       CROP_FACE:
         DO_CROP_FACE: True
-        BACKEND: 'HC'    # HC for Haar Cascade, Y5F for YOLO5Face
-        USE_LARGE_FACE_BOX: True
+        BACKEND: "Y11F"  # "Y5F" or "Y11F_RGB" or "Y11F"
+        USE_LARGE_FACE_BOX: False
         LARGE_BOX_COEF: 1.5
         DETECTION:
-          DO_DYNAMIC_DETECTION: False
+          DO_DYNAMIC_DETECTION: True
           DYNAMIC_DETECTION_FREQUENCY : 30
-          USE_MEDIAN_FACE_BOX: False    # This should be used ONLY if dynamic detection is used
+          USE_MEDIAN_FACE_BOX: True  # This should be used ONLY if dynamic detection is used
+      SAVE_RGB_SIGNALS : True 
       RESIZE:
         H: 72
         W: 72

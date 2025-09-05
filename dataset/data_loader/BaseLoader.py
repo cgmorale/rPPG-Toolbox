@@ -23,7 +23,7 @@ try:
     # print("spawned")
 except RuntimeError:
     pass
-
+from dataset.data_loader.face_detector.YOLO11FaceRGB import YOLO11FaceRGB
 import cv2
 import numpy as np
 import pandas as pd
@@ -70,9 +70,12 @@ class BaseLoader(Dataset):
             from dataset.data_loader.face_detector.YOLO5Face import YOLO5Face
             if 'Y5F' in self.config_data.PREPROCESS.CROP_FACE.BACKEND:
                 self.Y5FObj = YOLO5Face(self.config_data.PREPROCESS.CROP_FACE.BACKEND, device)
+            # elif 'Y11F' in self.config_data.PREPROCESS.CROP_FACE.BACKEND:
+            #     from dataset.data_loader.face_detector.YOLO11Face import YOLO11Face
+            #     self.Y11FObj = YOLO11Face(self.config_data.PREPROCESS.CROP_FACE.BACKEND, device)
             elif 'Y11F' in self.config_data.PREPROCESS.CROP_FACE.BACKEND:
-                from dataset.data_loader.face_detector.YOLO11Face import YOLO11Face
-                self.Y11FObj = YOLO11Face(self.config_data.PREPROCESS.CROP_FACE.BACKEND, device)
+                from dataset.data_loader.face_detector.YOLO11FaceRGB import YOLO11FaceRGB
+                self.Y11FObj = YOLO11FaceRGB(self.config_data.PREPROCESS.CROP_FACE.BACKEND, device)
         assert (config_data.BEGIN < config_data.END)
         assert (config_data.BEGIN > 0 or config_data.BEGIN == 0)
         assert (config_data.END < 1 or config_data.END == 1)
@@ -334,6 +337,25 @@ class BaseLoader(Dataset):
                 square_size = max(width, height)
 
                 # Calculate the new coordinates for a square face zone
+                new_x = center_x - (square_size // 2)
+                new_y = center_y - (square_size // 2)
+                face_box_coor = [new_x, new_y, square_size, square_size]
+            else:
+                print("ERROR: No Face Detected")
+                face_box_coor = [0, 0, frame.shape[0], frame.shape[1]]
+ 
+        elif "Y11F" in backend:
+            # Use a YOLOv11Face trained model
+            res = self.Y11FObj.detect_face(frame[:, :, :3].astype(np.uint8))
+            if res is not None:
+                x_min, y_min, x_max, y_max = res
+                x = x_min
+                y = y_min
+                width = x_max - x_min
+                height = y_max - y_min
+                center_x = x + width // 2
+                center_y = y + height // 2
+                square_size = max(width, height)
                 new_x = center_x - (square_size // 2)
                 new_y = center_y - (square_size // 2)
                 face_box_coor = [new_x, new_y, square_size, square_size]

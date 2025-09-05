@@ -57,6 +57,7 @@ def add_args(parser):
     Unsupervised Method Sample YAML LIST:
       PURE_UNSUPERVISED.yaml
       UBFC-rPPG_UNSUPERVISED.yaml
+      MMPD_UNSUPERVISED.yaml
     '''
     return parser
 
@@ -202,7 +203,7 @@ if __name__ == "__main__":
         elif config.VALID.DATA.DATASET == "SCAMPS":
             valid_loader = data_loader.SCAMPSLoader.SCAMPSLoader
         elif config.VALID.DATA.DATASET == "MMPD":
-            valid_loader = data_loader.MMPDLoader.MMPDLoader
+            valid_loader = data_loader.MMPDLoaderwithRGB.MMPDLoaderwithRGB
         elif config.VALID.DATA.DATASET == "BP4DPlus":
             valid_loader = data_loader.BP4DPlusLoader.BP4DPlusLoader
         elif config.VALID.DATA.DATASET == "BP4DPlusBigSmall":
@@ -289,7 +290,7 @@ if __name__ == "__main__":
         elif config.UNSUPERVISED.DATA.DATASET == "SCAMPS":
             unsupervised_loader = data_loader.SCAMPSLoader.SCAMPSLoader
         elif config.UNSUPERVISED.DATA.DATASET == "MMPD":
-            unsupervised_loader = data_loader.MMPDLoader.MMPDLoader
+            unsupervised_loader = data_loader.MMPDLoaderWithRGB.MMPDLoaderWithRGB
         elif config.UNSUPERVISED.DATA.DATASET == "BP4DPlus":
             unsupervised_loader = data_loader.BP4DPlusLoader.BP4DPlusLoader
         elif config.UNSUPERVISED.DATA.DATASET == "UBFC-PHYS":
