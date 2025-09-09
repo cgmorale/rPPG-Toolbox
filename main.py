@@ -58,6 +58,7 @@ def add_args(parser):
       PURE_UNSUPERVISED.yaml
       UBFC-rPPG_UNSUPERVISED.yaml
       MMPD_UNSUPERVISED.yaml
+      FIELD_UNSUPERVISED.yaml
     '''
     return parser
 
@@ -255,9 +256,11 @@ if __name__ == "__main__":
             test_loader = data_loader.UBFCPHYSLoader.UBFCPHYSLoader
         elif config.TEST.DATA.DATASET == "iBVP":
             test_loader = data_loader.iBVPLoader.iBVPLoader
+        elif config.TEST.DATA.DATASET == "FIELD":
+            test_loader = data_loader.FIELDLoader.FIELDLoader
         else:
             raise ValueError("Unsupported dataset! Currently supporting UBFC-rPPG, PURE, MMPD, \
-                             SCAMPS, BP4D+ (Normal and BigSmall preprocessing), UBFC-PHYS and iBVP.")
+                             SCAMPS, BP4D+ (Normal and BigSmall preprocessing), UBFC-PHYS, iBVP and FIELD.")
         
         if config.TOOLBOX_MODE == "train_and_test" and config.TEST.USE_LAST_EPOCH:
             print("Testing uses last epoch, validation dataset is not required.", end='\n\n')   
@@ -297,9 +300,11 @@ if __name__ == "__main__":
             unsupervised_loader = data_loader.UBFCPHYSLoader.UBFCPHYSLoader
         elif config.UNSUPERVISED.DATA.DATASET == "iBVP":
             unsupervised_loader = data_loader.iBVPLoader.iBVPLoader
+        elif config.UNSUPERVISED.DATA.DATASET == "FIELD":
+            unsupervised_loader = data_loader.FIELDLoader.FIELDLoader
         else:
             raise ValueError("Unsupported dataset! Currently supporting UBFC-rPPG, PURE, MMPD, \
-                             SCAMPS, BP4D+, UBFC-PHYS and iBVP.")
+                             SCAMPS, BP4D+, UBFC-PHYS, iBVP and FIELD.")
         
         unsupervised_data = unsupervised_loader(
             name="unsupervised",
