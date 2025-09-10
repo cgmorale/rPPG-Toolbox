@@ -270,7 +270,7 @@ def unsupervised_predict(config, data_loader, method_name):
         df_participants.index.name = 'participant_id'
         
         # Create results directory if it doesn't exist
-        results_dir = f"/zfsauton/data/straps/UBFC-rPPG/resultsFineFFT/{filename_id}"
+        results_dir = f"/zfsauton/data/straps/ICRA2026_toolboxcache/psicinsk/resultsFineFFT/{filename_id}"
         os.makedirs(results_dir, exist_ok=True)
         
         # Save per-participant metrics

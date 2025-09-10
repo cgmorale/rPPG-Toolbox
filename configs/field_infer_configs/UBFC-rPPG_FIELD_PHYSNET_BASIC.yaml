@@ -6,10 +6,10 @@ TEST:
   DATA:
     FS: 30
     DATASET: FIELD
-    DO_PREPROCESS: True                  # if first time, should be true
+    DO_PREPROCESS: False                  # if first time, should be true
     DATA_FORMAT: NCDHW
     DATA_PATH: "/zfsauton/data/straps/ChironFieldTestOffset/"                    # Raw dataset path, need to be updated
-    CACHED_PATH: "/zfsauton/data/straps/ICRA2026_toolboxcache/psicinsk2"    # Processed dataset save path, need to be updated
+    CACHED_PATH: "/zfsauton/data/straps/ICRA2026_toolboxcache/psicinsk"    # Processed dataset save path, need to be updated
     EXP_DATA_NAME: ""
     BEGIN: 0.0
     END: 1.0
@@ -20,7 +20,7 @@ TEST:
       CHUNK_LENGTH: 128                 #only support for factor of 512
       CROP_FACE:
         DO_CROP_FACE: True
-        BACKEND: 'Y11F'    # HC for Haar Cascade, Y5F for YOLO5Face
+        BACKEND: 'Y5F'    # HC for Haar Cascade, Y5F for YOLO5Face
         USE_LARGE_FACE_BOX: False
         LARGE_BOX_COEF: 1.5
         DETECTION:
@@ -45,4 +45,4 @@ INFERENCE:
   EVALUATION_WINDOW:
     USE_SMALLER_WINDOW: True        # Change this if you'd like an evaluation window smaller than the test video length
     WINDOW_SIZE: 10        # In seconds
-  MODEL_PATH: "./final_model_release/PURE_PhysNet_DiffNormalized.pth"
+  MODEL_PATH: "./final_model_release/UBFC-rPPG_PhysNet_DiffNormalized.pth"

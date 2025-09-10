@@ -247,7 +247,7 @@ def calculate_metrics(predictions, labels, config):
                 )
 
     # Create results directory
-    results_dir = f"/zfsauton/data/straps/PURE/resultsFineFFT/{filename_id}"
+    results_dir = f"/zfsauton/data/straps/ICRA2026_toolboxcache/psicinsk/resultsFineFFT/{filename_id}"
     os.makedirs(results_dir, exist_ok=True)
     
     # Save individual window predictions and ground truth (PRIMARY OUTPUT)

@@ -41,6 +41,9 @@ class FIELDLoader(BaseLoader):
         # Convert to the format expected by BaseLoader
         dirs = []
         for entry in all_indices:
+            if entry['participant_id'] == 15:
+                continue
+
             dirs.append({
                 "index": f"participant{entry['participant_id']}_condition{entry['condition_id']}",
                 "path": f"field_data",  # dummy path, actual data comes from FileReader
@@ -65,7 +68,7 @@ class FIELDLoader(BaseLoader):
         return data_dirs_new
     
     def multi_process_manager(self, data_dirs, config_preprocess):
-        return super().multi_process_manager(data_dirs, config_preprocess, multi_process_quota=4)
+        return super().multi_process_manager(data_dirs, config_preprocess, multi_process_quota=8)
 
     def preprocess_dataset_subprocess(self, data_dirs, config_preprocess, i, file_list_dict):
         """ invoked by preprocess_dataset for multi_process."""
